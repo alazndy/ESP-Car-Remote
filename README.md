@@ -1,47 +1,41 @@
-# ESP32 Ultimate Remote - Hybrid Bluetooth Controller
+# ESP32 Ultimate Remote - EXPERIMENTAL BRANCH
 
-This repository hosts the development of a versatile ESP32-based Bluetooth remote control, designed to function as a hybrid controller for various applications, primarily focusing on car multimedia and smart assistant integration. The project explores both Arduino and ESP-IDF frameworks to achieve different levels of functionality.
+**DİKKAT:** Bu branch, projenin Arduino altyapısından **ESP-IDF (Espressif IoT Development Framework)** altyapısına taşındığı ve yeni özelliklerin eklendiği geliştirme sürümünü içermektedir. Bu koddaki yapılar, ana branch'teki Arduino kodundan tamamen farklıdır ve çalışması için profesyonel bir geliştirme ortamı gerektirir.
 
-## Project Overview
+## Projenin Amacı (Bu Branch için)
 
-The core idea is to transform an ESP32 into a powerful input device capable of:
-- Emulating a standard Human Interface Device (HID) for keyboard and gamepad controls.
-- Integrating advanced audio capabilities, such as a microphone for hands-free communication or voice assistant commands.
+Bu branch'in temel hedefi, ESP32'nin tüm yeteneklerini kullanarak standart bir BLE kumandanın ötesine geçmektir. Amaç, aşağıdaki iki ana özelliği aynı anda çalıştıran **hibrit bir akıllı kumanda** oluşturmaktır:
 
-Due to the complexity of combining Bluetooth Low Energy (BLE) HID with Bluetooth Classic Hands-Free Profile (HFP) for audio, the project is structured into different branches, each focusing on a specific implementation or feature set.
+1.  **Bluetooth Classic (HFP - Hands-Free Profile):** Cihaza bir I2S mikrofon (INMP441) ekleyerek, ESP32'nin bir Bluetooth kulaklık gibi davranmasını sağlamak. Bu, telefon görüşmeleri yapmak veya sesli asistanlara komut göndermek için ses aktarımına olanak tanır.
+2.  **Bluetooth Low Energy (BLE - HID Profili):** Cihazın aynı anda bir klavye ve gamepad olarak tanınmasını sağlamak. Bu, medya kontrolü (ses, şarkı değiştirme) ve menülerde D-Pad ile gezinme gibi işlevleri yönetir.
 
-## Branches
+Kısacası, bu branch projemizi "eller serbest" ses özelliklerine sahip, tam fonksiyonlu bir akıllı araba kumandasına dönüştürmeyi hedefler.
 
-This repository is organized into the following main branches:
+## Gereksinimler
 
--   **`main`**: This branch serves as the stable entry point for the project. It provides an overview of the different development paths and links to the specific feature branches. It does not contain directly runnable code for a specific controller version but acts as a central hub.
+### Donanım Gereksinimleri
 
--   **`arduino_controller`**: This branch contains the **Arduino framework** implementation of the remote control. It focuses on basic BLE HID functionality, acting as a keyboard and mouse for media control and navigation. This version is simpler to set up and program using PlatformIO with the Arduino framework.
-    *   **Features:** BLE HID (Keyboard, Mouse), Media Controls, Navigation, Simulator/Physical modes.
-    *   **Target Audience:** Users looking for a straightforward BLE remote without microphone integration.
+-   **Mikrodenetleyici:** ESP32 Geliştirme Kartı
+-   **Mikrofon:** **INMP441** I2S Dijital Mikrofon Modülü (Ses kalitesi için kritik)
+-   **Kontrol:** Analog Joystick Modülü ve Fiziksel Butonlar
+-   **Güç:** Harici bir güç devresi (Pil, TP4056 şarj modülü, 3.3V regülatör) tavsiye edilir.
 
--   **`esp_idf_microphone`**: This branch represents the advanced **ESP-IDF framework** implementation, which includes **microphone integration** via Bluetooth Classic's Hands-Free Profile (HFP). This version is significantly more complex, requiring a deeper understanding of ESP-IDF and C programming, but offers dual-mode Bluetooth capabilities (BLE HID + BT Classic HFP).
-    *   **Features:** Bluetooth Dual-Mode (BLE HID + BT Classic HFP), Microphone Input, Gamepad/Keyboard Controls, Advanced ESP-IDF architecture.
-    *   **Target Audience:** Developers aiming for a full-featured smart assistant or hands-free communication device.
+### Yazılım Gereksinimleri
 
-## Getting Started
+-   **IDE:** Visual Studio Code
+-   **Framework:** **ESP-IDF (Espressif IoT Development Framework)**. (Arduino DEĞİL!)
+    -   VS Code için resmi "Espressif IDF" eklentisinin kurulması zorunludur.
+-   **Dil:** C
+-   **İşletim Sistemi:** FreeRTOS (ESP-IDF ile birlikte gelir)
 
-To explore a specific version of the project, please checkout the respective branch:
+## Geliştirme Yol Haritası
 
-```bash
-# For the Arduino-based controller
-git checkout arduino_controller
+Bu branch'teki kod, nihai hedefin kavramsal bir temsilidir. Çalışır hale getirmek için aşağıdaki adımlar izlenmelidir:
 
-# For the ESP-IDF based microphone-enabled controller
-git checkout esp_idf_microphone
-```
+1.  **Ortam Kurulumu:** Bilgisayarınıza VS Code ve ESP-IDF eklentisini kurun.
+2.  **HFP Örneğini Test Etme:** ESP-IDF içindeki `hfp_hf_demo` örneğini çalıştırarak ses aktarımının temelini doğrulayın.
+3.  **HID Örneğini Test Etme:** `ble_hid_device_demo` örneğini çalıştırarak BLE kontrolcü fonksiyonlarını doğrulayın.
+4.  **I2S Mikrofonu Test Etme:** `i2s` örneklerinden biriyle mikrofondan ses okunduğunu doğrulayın.
+5.  **Kodları Birleştirme:** Bu üç çalışan örneği, bu branch'teki `main.c` dosyasında bulunan mantığa göre adım adım birleştirin.
 
-Each branch contains its own detailed `README.md` with specific setup, hardware, software, and usage instructions.
-
-## Contributing
-
-Contributions are welcome! Please refer to the `CONTRIBUTING.md` (if available) or the `README.md` of the specific branch you wish to contribute to for guidelines.
-
-## License
-
-This project is distributed under the MIT License. See `LICENSE` for more information.
+Mevcut kod, bu birleştirme işlemi için bir kılavuz ve iskelet görevi görmektedir.
