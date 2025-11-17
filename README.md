@@ -42,6 +42,15 @@ For **Physical Mode**, you will need the following components:
 -   **Libraries:**
     -   `ESP32-BLE-Combo`: A powerful library that enables the ESP32 to act as a composite BLE HID device (Keyboard + Mouse). This library is included in the `lib/` folder of this project.
 
+## Python Simulator
+
+A dedicated Python GUI simulator is available to test the ESP32's functionality without physical hardware, or to visualize audio input for the ESP-IDF microphone version.
+
+-   **Repository:** [ESP-Car-Remote-Simulator](https://github.com/alazndy/ESP-Car-Remote-Simulator.git)
+-   **Location in this branch:** `esp32_controller_gui.py`
+
+Refer to the simulator's repository for detailed setup and usage instructions.
+
 ## Installation & Setup
 
 1.  **Clone this branch:**
