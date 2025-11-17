@@ -28,6 +28,15 @@ Kısacası, bu branch projemizi "eller serbest" ses özelliklerine sahip, tam fo
 -   **Dil:** C
 -   **İşletim Sistemi:** FreeRTOS (ESP-IDF ile birlikte gelir)
 
+## Python Simulator
+
+A dedicated Python GUI simulator is available to test the ESP32's functionality, especially for visualizing audio input from the I2S microphone.
+
+-   **Repository:** [ESP-Car-Remote-Simulator](https://github.com/alazndy/ESP-Car-Remote-Simulator.git)
+-   **Location in this branch:** `esp32_controller_gui.py`
+
+Refer to the simulator's repository for detailed setup and usage instructions.
+
 ## Geliştirme Yol Haritası
 
 Bu branch'teki kod, nihai hedefin kavramsal bir temsilidir. Çalışır hale getirmek için aşağıdaki adımlar izlenmelidir:
